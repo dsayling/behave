@@ -736,13 +736,7 @@ class Parser(object):
                 # BUT: Keywords in some languages (like Chinese, Japanese, ...)
                 #      do not need a whitespace as word separator.
                 step_text_after_keyword = line[len(kw):].strip()
-                if step_type in ("and", "but"):
-                    if not self.last_step:
-                        raise ParserError(u"No previous step",
-                                          self.line, self.filename)
-                    step_type = self.last_step
-                else:
-                    self.last_step = step_type
+                self.last_step = step_type
 
                 keyword = kw.rstrip()  # HINT: Strip optional trailing SPACE.
                 step = model.Step(self.filename, self.line,
