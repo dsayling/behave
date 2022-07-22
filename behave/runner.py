@@ -29,6 +29,10 @@ if six.PY2:
 else:
     import traceback
 
+CONTEXT = {}
+
+def get_context():
+    return CONTEXT.get("context")
 
 class CleanupError(RuntimeError):
     pass
@@ -869,6 +873,7 @@ class Runner(ModelRunner):
 
     def run_with_paths(self):
         self.context = Context(self)
+        CONTEXT.update({"context": self.context})
         self.load_hooks()
         self.load_step_definitions()
 
